@@ -1201,7 +1201,7 @@ class Theme {
 			throw new UnknownLayoutFileException("Layout [$this->layout] not found.");
 		}
 
-		$content = $this->view->make($path)->render();
+		$content = $this->view->make($path, $this->arguments)->render();
 
 		// Append status code to view.
 		$content = new Response($content, $statusCode);
