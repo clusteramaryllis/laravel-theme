@@ -660,6 +660,8 @@ class Theme {
 			throw new UnknownPartialFileException("Partial view [$view] not found.");
 		}
 
+		$args = array_merge($this->arguments, $args);
+
 		$partial = $this->view->make($path, $args)->render();
 
 		$this->regions[$view] = $partial;
