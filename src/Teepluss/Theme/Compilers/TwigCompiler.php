@@ -6,7 +6,6 @@ use Twig_Loader_String;
 use Twig_SimpleFunction;
 use Twig_Function_Function;
 use Twig_Loader_Filesystem;
-//use Illuminate\View\Factory;
 use Illuminate\Config\Repository;
 use Illuminate\View\Compilers\CompilerInterface;
 
@@ -77,16 +76,17 @@ class TwigCompiler implements CompilerInterface {
     }
 
     /**
-     * [getTwigCompiler description]
-     * @param  [type] $loader [description]
-     * @return [type]         [description]
+     * Twig compiler.
+     *
+     * @param  Twig_Loader_Filesystem $loader
+     * @return Twig_Environment
      */
     public function getTwigCompiler($loader)
     {
         $this->twig = new Twig_Environment($loader, array(
            'cache'       => storage_path().'/views',
            'autoescape'  => false,
-           'auto_reload' => true,
+           'auto_reload' => true
         ));
 
         // Hook twig to do what you want.

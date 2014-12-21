@@ -1,4 +1,4 @@
-## Theme for Laravel 4
+## Theme Management for Laravel
 
 Theme is a theme management for Laravel version 4, it is the easiest way to organize your skins, layouts and assets.
 Right now Theme supports PHP, Blade, and Twig.
@@ -44,7 +44,7 @@ php artisan config:publish teepluss/theme
 
 ## Usage
 
-Theme has mamy features to help you get started with Laravel 4
+Theme has many features to help you get started with Laravel 4
 
 - [Create theme with artisan CLI](#create-theme-with-artisan-cli)
 - [Configuration](#configuration)
@@ -678,6 +678,10 @@ public function getIndex()
 ~~~
 
 ## Changes
+
+#### v1.2.0
+- Many bug fixed.
+- This is the last version that support Laravel 4.x, the next version is for Laravel 5.x.
 
 #### v1.1.2
 - Bug fixed.

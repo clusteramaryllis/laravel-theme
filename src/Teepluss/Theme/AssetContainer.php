@@ -37,8 +37,6 @@ class AssetContainer {
     public function __construct($name)
     {
         $this->name = $name;
-
-        //$this->path = Asset::$path;
     }
 
     /**
@@ -168,7 +166,7 @@ class AssetContainer {
             {
                 $name = $name.'-'.md5($path);
 
-                $this->add($name, $path, $dependencies, $attributes);
+                $this->added($name, $path, $dependencies, $attributes);
             }
         }
         else
