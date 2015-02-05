@@ -1,17 +1,19 @@
 ## Theme Management for Laravel
 
-Theme is a theme management for Laravel version 4, it is the easiest way to organize your skins, layouts and assets.
+### For Laravel 4, please use the [v1.x branch](https://github.com/teepluss/laravel-theme/tree/v1.x)!
+
+Theme is a theme management for Laravel 5, it is the easiest way to organize your skins, layouts and assets.
 Right now Theme supports PHP, Blade, and Twig.
 
 ### Installation
 
 - [Theme on Packagist](https://packagist.org/packages/teepluss/theme)
-- [Theme on GitHub](https://github.com/teepluss/laravel4-theme)
+- [Theme on GitHub](https://github.com/teepluss/laravel-theme)
 
 To get the latest version of Theme simply require it in your `composer.json` file.
 
 ~~~
-"teepluss/theme": "dev-master"
+"teepluss/theme": "dev-develop"
 ~~~
 
 You'll then need to run `composer install` to download it and have the autoloader updated.
@@ -19,32 +21,32 @@ You'll then need to run `composer install` to download it and have the autoloade
 Once Theme is installed you need to register the service provider with the application. Open up `app/config/app.php` and find the `providers` key.
 
 ~~~
-'providers' => array(
+'providers' => [
 
     'Teepluss\Theme\ThemeServiceProvider',
 
-)
+]
 ~~~
 
 Theme also ships with a facade which provides the static syntax for creating collections. You can register the facade in the `aliases` key of your `app/config/app.php` file.
 
 ~~~
-'aliases' => array(
+'aliases' => [
 
     'Theme' => 'Teepluss\Theme\Facades\Theme',
 
-)
+]
 ~~~
 
 Publish config using artisan CLI.
 
 ~~~
-php artisan config:publish teepluss/theme
+php artisan vendor:publish
 ~~~
 
 ## Usage
 
-Theme has many features to help you get started with Laravel 4
+Theme has many features to help you get started with Laravel
 
 - [Create theme with artisan CLI](#create-theme-with-artisan-cli)
 - [Configuration](#configuration)
@@ -55,7 +57,6 @@ Theme has many features to help you get started with Laravel 4
 - [Symlink from another view](#symlink-from-another-view)
 - [Basic using asset](#basic-using-asset)
 - [Preparing group of assets](#preparing-group-of-assets)
-- [Asset compression](#asset-compression)
 - [Partials](#partials)
 - [Set and Append, Prepend](#set-and-append)
 - [Preparing data to view](#preparing-data-to-view)
@@ -391,54 +392,6 @@ Then you can get output.
 ...
 ~~~
 
-### Asset compression
-
-Theme asset has the feature to compress assets by using queue.
-
-~~~php
-// To queue asset outside theme path.
-$theme->asset()->queue('queue-name')->add('one', 'js/one.js');
-$theme->asset()->queue('queue-name')->add('two', 'js/two.js');
-
-// To queue asset inside theme path.
-$theme->asset()->queue('queue-name')->usePath()->add('xone', 'js/one.js');
-$theme->asset()->queue('queue-name')->usePath()->add('xtwo', 'js/two.js');
-
-// You can group all assets in a one queue also.
-$theme->asset()->queue('queue-name', function($asset)
-{
-    $theme->asset()->add('one', 'js/one.js');
-    $theme->asset()->usePath()->add('xtwo', 'js/two.js');
-});
-~~~
-
-To render compressed assets inside view.
-
-~~~php
-echo Theme::asset()->queue('queue-name')->scripts(array('defer' => 'defer'));
-echo Theme::asset()->queue('queue-name')->styles(array('async' => 'async'));
-~~~
-
-To force compress.
-
-~~~php
-$theme->asset()->queue('queue-name')->compress();
-~~~
-
-When you need best performance on production, you can stop compress using "capture".
-~~~php
-echo Theme::asset()->queue('queue-name')->capture()->scripts();
-echo Theme::asset()->queue('queue-name')->capture()->styles();
-
-// Trick !
-
-echo Theme::asset()->queue('queue-name')->capture(App::environmenet() == 'production')->scripts();
-
-// This will stop any process of compression.
-~~~
-
-> If you have already published the config before this feature was available, you need to re-publish the config.
-
 ### Partials
 
 Render a partial in your layouts or views.
@@ -615,7 +568,7 @@ You can create a widget class using artisan command:
 
 Creating as a global.
 ~~~
-php artisan theme:widget demo --global --type=blade --case=snake
+php artisan theme:widget demo --global --type=blade
 ~~~
 > Widget tpl is located in /app/views/widgets/{widget-tpl}.{extension}
 
@@ -685,8 +638,8 @@ public function getIndex()
 
 #### v1.1.2
 - Bug fixed.
-- Added method watchPartial to look up in main view folder [(#64)](https://github.com/teepluss/laravel4-theme/pull/64).
-- Fixed compress JS and CSS [(#65)](https://github.com/teepluss/laravel4-theme/pull/65).
+- Added method watchPartial to look up in main view folder.
+- Fixed compress JS and CSS.
 - Fixed asset URL doesn't read from config.
 
 #### v1.0.1

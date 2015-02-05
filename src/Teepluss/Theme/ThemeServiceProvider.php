@@ -19,12 +19,15 @@ class ThemeServiceProvider extends ServiceProvider {
      */
     public function boot()
     {
-        // Autoload for widget factory.
-        ClassLoader::addDirectories(array(
-            app_path().'/widgets'
-        ));
+        // Theme publishing.
+        $this->publishes([
+            __DIR__.'/../../config/theme.php' => config_path('theme.php'),
+        ], 'config');
 
-        $this->package('teepluss/theme');
+        // Merge config to allow user overwrite.
+        $this->mergeConfigFrom(
+            __DIR__.'/../../config/theme.php', 'theme'
+        );
 
         // Temp to use in closure.
         $app = $this->app;
@@ -71,7 +74,7 @@ class ThemeServiceProvider extends ServiceProvider {
     {
         $this->app['asset'] = $this->app->share(function($app)
         {
-            return new Asset($app['events']);
+            return new Asset();
         });
     }
 

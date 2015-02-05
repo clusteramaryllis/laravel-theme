@@ -12,46 +12,7 @@ return array(
 	|
 	*/
 
-	'assetUrl' => URL::to('/'),
-
-	/*
-	|--------------------------------------------------------------------------
-	| Asset compression path
-	|--------------------------------------------------------------------------
-	|
-	| The path to compress assets after at public directory.
-	|
-	*/
-
-	'compressDir' => 'cache',
-
-	/*
-	|--------------------------------------------------------------------------
-	| Force compress assets
-	|--------------------------------------------------------------------------
-	|
-	| This forces Theme to (re)compile compression assets on every invocation.
-	| By default this is FALSE. This is handy for development and debugging,
-	| It should never be used in a production environment.
-	|
-	*/
-
-	'forceCompress' => false,
-
-	/*
-	|--------------------------------------------------------------------------
-	| Capture asset compression
-	|--------------------------------------------------------------------------
-	|
-	| When you queue asset to be compression, normally It read your file(s)
-	| everytime, but on production you can stop the process by set capture
-	| true, this will be increase performance.
-	|
-	| eg. (App::environment() == 'production') ? true : false
-	|
-	*/
-
-	'assetCapture' => false,
+	'assetUrl' => '/',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -98,13 +59,26 @@ return array(
 	|
 	*/
 
-	'containerDir' => array(
+	'containerDir' => [
 		'layout'  => 'layouts',
 		'asset'   => 'assets',
 		'partial' => 'partials',
 		'widget'  => 'widgets',
 		'view'    => 'views'
-	),
+	],
+
+	/*
+	|--------------------------------------------------------------------------
+	| Namespaces
+	|--------------------------------------------------------------------------
+	|
+	| Class namespace.
+	|
+	*/
+
+	'namespaces' => [
+		'widget' => 'App\Widgets'
+ 	],
 
 	/*
 	|--------------------------------------------------------------------------
@@ -116,7 +90,7 @@ return array(
 	|
 	*/
 
-	'events' => array(
+	'events' => [
 
 		// Before all event, this event will effect for global.
 		'before' => function($theme)
@@ -138,6 +112,56 @@ return array(
             // Theme::asset()->serve('backbone');
 		}
 
-	)
+	],
 
+	/*
+	|--------------------------------------------------------------------------
+	| Compiler engines.
+	|--------------------------------------------------------------------------
+	|
+	| Config for compiler engines.
+	|
+	*/
+
+	'engines' => [
+
+		'twig' => [
+
+		    // This is laravel alias to allow in twig compiler
+		    // The list all of methods is at /app/config/app.php
+		    'allows' => [
+		        'Auth',
+		        'Cache',
+		        'Config',
+		        'Cookie',
+		        'Form',
+		        'HTML',
+		        'Input',
+		        'Lang',
+		        'Paginator',
+		        'Str',
+		        'Theme',
+		        'URL',
+		        'Validator'
+		    ],
+
+
+		    // This is laravel alias to allow in twig compiler
+		    // The list all of methods is at /app/config/app.php
+		    'hooks' => function($twig)
+		    {
+		        // Example add funciton name "demo".
+		        /*$function = new Twig_SimpleFunction('example', function()
+		        {
+		            $args = func_get_args();
+
+		            return "Example" . print_r($args, true);
+		        });
+
+		        $twig->addFunction($function);*/
+
+		        return $twig;
+		    }
+		]
+	]
 );
